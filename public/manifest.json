@@ -1,0 +1,66 @@
+{
+  "name": "Fitness Tracker",
+  "short_name": "FitTrack",
+  "description": "Track your fitness progress and stay motivated with our user-friendly app.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "/images/favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/images/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/images/logo.svg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.svg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Track Workout",
+      "short_name": "Workout",
+      "url": "/progress",
+      "icons": [
+        {
+          "src": "/images/workout-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Set Goals",
+      "short_name": "Goals",
+      "url": "/goals",
+      "icons": [
+        {
+          "src": "/images/goal-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Community Feed",
+      "short_name": "Community",
+      "url": "/community",
+      "icons": [
+        {
+          "src": "/images/community-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
