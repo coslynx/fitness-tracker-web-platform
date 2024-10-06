@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String  @id @default(auto()) @map("_id") @db.Uuid
+  email               String  @unique
+  name                String
+  avatarUrl           String?
+  createdAt           DateTime @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime @updatedAt @db.Timestamp(6)
+  role                UserRole @default(USER)
+  subscriptionId     String?
+  subscriptionStatus String?
+  goals               Goal[]
+  progress            Progress?
+  following          User[] @relation("Following")
+  followers          User[] @relation("Following")
+}
+
+model Goal {
+  id          String   @id @default(auto()) @map("_id") @db.Uuid
+  name        String
+  type        GoalType
+  target      String
+  deadline    DateTime
+  userId      String   @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @updatedAt @db.Timestamp(6)
+  status      GoalStatus?
+  progress    Progress?
+}
+
+model Workout {
+  id        String   @id @default(auto()) @map("_id") @db.Uuid
+  type      WorkoutType
+  date      DateTime
+  duration  Int
+  intensity WorkoutIntensity
+  userId    String   @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+  progress  Progress?
+}
+
+model Progress {
+  id        String  @id @default(auto()) @map("_id") @db.Uuid
+  user      User   @relation(fields: [userId], references: [id])
+  goal      Goal?   @relation(fields: [goalId], references: [id])
+  workout   Workout? @relation(fields: [workoutId], references: [id])
+  userId    String  @db.Uuid
+  goalId    String? @db.Uuid
+  workoutId String? @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum GoalType {
+  WEIGHT_LOSS
+  MUSCLE_GAIN
+  DISTANCE_RUNNING
+}
+
+enum GoalStatus {
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+enum WorkoutType {
+  CARDIO
+  STRENGTH
+  YOGA
+  OTHER
+}
+
+enum WorkoutIntensity {
+  LOW
+  MEDIUM
+  HIGH
+}
